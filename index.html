@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Todo app</title>
+  <!-- font awesome  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- css -->
+  <link rel="stylesheet" href="style.css">
+  <!-- javascript  -->
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+
+  <div class="container hero">
+    <div class="wrapper">
+      <div class="hero-info flex">
+        <h1>TODO</h1>
+        <button class="modeToggle-btn">
+          <span class="moon"><img src="/images/icon-moon.svg" alt="moon"></span>
+          <span class="sun"><img src="/images/icon-sun.svg" alt="sun"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container todo-item">
+    <div class="wrapper">
+      <div class="todo-list">
+        <!-- input -->
+        <div class="todo-input">
+          <div class="circle"></div>
+          <input type="text" placeholder="Create a new todo..">
+        </div>
+        <ul>
+          <!-- todo list -->
+        </ul>
+        <!-- clear all todos -->
+        <div class="delete-all_container flex">
+          <p><span class="undone-total">5</span> items left</p>
+          <button class="clear">Clear Completed</button>
+        </div>
+      </div>
+
+      <!--todo category box -->
+      <div class="categories-box flex">
+        <button data-category="all" class="active">All</button>
+        <button data-category="active">Active</button>
+        <button data-category="completed">Completed</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Todo -->
+
+  <!-- Add dynamic number -->
+  <!-- items left -->
+
+  <!-- All
+  Active
+  Completed
+
+  Clear Completed
+
+  Drag and drop to reorder list -->
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+
+</html>
