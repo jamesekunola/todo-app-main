@@ -2,17 +2,30 @@
 const todoInput = document.querySelector("input[type='text']");
 const todoListUlEl = document.querySelector(".todo-list ul");
 const clearBtn = document.querySelector(".clear");
+const heroEl = document.querySelector(".hero");
+const modeToggleBtn = document.querySelector(".modeToggle-btn");
+const moonIcon = document.querySelector(".moon");
+const sunIcon = document.querySelector(".sun");
+const bodyClass = document.body;
 let todos = JSON.parse(localStorage.getItem("todo-list"));
+let bgMode = JSON.parse(localStorage.getItem("bg-mode"));
+let mode;
+let setBackgroundMode;
+let storeMode;
+
 // event listener
 addEventListener("DOMContentLoaded", () => {
+  applyPreviouslyBackgroundOnLoad();
   renderPendingTodoNumber();
   toggleDarkAndLightModeBg();
   renderTodoList();
   displayTodoOnUi();
   filterByTodoCategories();
 });
+
 // clear complected todo
 clearBtn.addEventListener("click", clearComplectedTodo);
+
 // set input value to empty string if user clicked outside the input
 document.addEventListener("click", (e) => {
   if (e.target !== todoInput) {
@@ -22,29 +35,48 @@ document.addEventListener("click", (e) => {
 
 // functions
 function toggleDarkAndLightModeBg() {
-  const heroEl = document.querySelector(".hero");
-  const modeToggleBtn = document.querySelector(".modeToggle-btn");
-  const moonIcon = document.querySelector(".moon");
-  const sunIcon = document.querySelector(".sun");
-  const bodyClass = document.body.classList;
-  let mode;
-
   modeToggleBtn.addEventListener("click", () => {
-    const windowsWidth = window.innerWidth;
-    mode = windowsWidth > 648 ? "desktop" : "mobile";
+    // store background color on local storage
 
-    if (!bodyClass.contains("dark-mode")) {
-      bodyClass.add("dark-mode");
-      sunIcon.classList.add("show");
-      moonIcon.classList.add("show");
-      heroEl.style.backgroundImage = ` url(/images/bg-${mode}-dark.jpg)`;
+    if (bgMode) {
+      storeMode = bgMode[0].mode == "dark-mode" ? "" : "dark-mode";
+      icon = bgMode[0].showIcon == "show" ? "" : "show";
     } else {
-      bodyClass.remove("dark-mode");
-      sunIcon.classList.remove("show");
-      moonIcon.classList.remove("show");
-      heroEl.style.backgroundImage = ` url(/images/bg-${mode}-light.jpg)`;
+      storeMode = "dark-mode";
+      icon = "show";
+      bgMode = [];
     }
+
+    bgMode[0] = {
+      mode: storeMode,
+      showIcon: icon,
+    };
+
+    // store current background to local storage
+    localStorage.setItem("bg-mode", JSON.stringify(bgMode));
+    setBackground();
   });
+}
+
+function setBackground() {
+  let windowsWidth = window.innerWidth;
+  mode = windowsWidth > 648 ? "desktop" : "mobile";
+
+  bodyClass.classList = bgMode[0].mode;
+  sunIcon.className = `sun ${bgMode[0].showIcon}`;
+  moonIcon.classList = `moon ${bgMode[0].showIcon}`;
+
+  setBackgroundMode = bodyClass.classList.contains("dark-mode")
+    ? ` url(/images/bg-${mode}-dark.jpg)`
+    : ` url(/images/bg-${mode}-light.jpg)`;
+
+  heroEl.style.backgroundImage = setBackgroundMode;
+}
+
+function applyPreviouslyBackgroundOnLoad() {
+  if (bgMode) {
+    setBackground();
+  }
 }
 
 function updateStat(inputEl) {
@@ -150,6 +182,7 @@ function filterByTodoCategories() {
         const todosCategories = e.currentTarget.dataset.category;
         let category;
 
+        console.log(todosCategories);
         if (todosCategories === "all") {
           displayTodoOnUi();
         } else if (todosCategories === "active") {
@@ -165,7 +198,9 @@ function filterByTodoCategories() {
 }
 
 function renderPendingTodoNumber() {
-  const pendingTodo = document.querySelector(".undone-total");
-  const pendingTodoNumber = todos.filter((list) => list.status == "pending");
-  pendingTodo.textContent = pendingTodoNumber.length;
+  if (todos) {
+    const pendingTodo = document.querySelector(".undone-total");
+    const pendingTodoNumber = todos.filter((list) => list.status == "pending");
+    pendingTodo.textContent = pendingTodoNumber.length;
+  }
 }
