@@ -15,7 +15,7 @@ let storeMode;
 
 // event listener
 addEventListener("DOMContentLoaded", () => {
-  applyPreviouslyBackgroundOnLoad();
+  setBackground();
   renderPendingTodoNumber();
   toggleDarkAndLightModeBg();
   renderTodoList();
@@ -59,23 +59,19 @@ function toggleDarkAndLightModeBg() {
 }
 
 function setBackground() {
-  let windowsWidth = window.innerWidth;
-  mode = windowsWidth > 648 ? "desktop" : "mobile";
-
-  bodyClass.classList = bgMode[0].mode;
-  sunIcon.className = `sun ${bgMode[0].showIcon}`;
-  moonIcon.classList = `moon ${bgMode[0].showIcon}`;
-
-  setBackgroundMode = bodyClass.classList.contains("dark-mode")
-    ? ` url(/images/bg-${mode}-dark.jpg)`
-    : ` url(/images/bg-${mode}-light.jpg)`;
-
-  heroEl.style.backgroundImage = setBackgroundMode;
-}
-
-function applyPreviouslyBackgroundOnLoad() {
   if (bgMode) {
-    setBackground();
+    let windowsWidth = window.innerWidth;
+    mode = windowsWidth > 648 ? "desktop" : "mobile";
+
+    bodyClass.classList = bgMode[0].mode;
+    sunIcon.className = `sun ${bgMode[0].showIcon}`;
+    moonIcon.classList = `moon ${bgMode[0].showIcon}`;
+
+    setBackgroundMode = bodyClass.classList.contains("dark-mode")
+      ? ` url(/images/bg-${mode}-dark.jpg)`
+      : ` url(/images/bg-${mode}-light.jpg)`;
+
+    heroEl.style.backgroundImage = setBackgroundMode;
   }
 }
 
@@ -148,6 +144,7 @@ function renderTodoList() {
       todoInput.value = "";
 
       displayTodoOnUi();
+
       // display the total number of pending todos
       renderPendingTodoNumber();
     }

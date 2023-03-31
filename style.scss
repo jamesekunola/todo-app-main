@@ -252,6 +252,10 @@ input[type="checkbox"]:checked::after {
   }
 }
 
+button.active:hover {
+  color: var(--Bright-Blue);
+}
+
 label {
   cursor: pointer;
 }
