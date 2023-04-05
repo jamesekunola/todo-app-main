@@ -145,6 +145,8 @@ li,
   outline: none;
   border: none;
   transition: var(--transition);
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 input[type=text]::-moz-placeholder {
@@ -176,7 +178,7 @@ input[type=checkbox] {
   align-self: flex-start;
   margin: 0 0.5em 0 0;
   height: 1.2rem;
-  width: 1.2rem;
+  min-width: 1.2rem;
   border-radius: 100%;
   border: 1px solid var(--Light-Grayish-Blue);
   -webkit-appearance: none;
@@ -254,5 +256,5 @@ label p.done {
 }
 
 .attribution a {
-  color: hsl(228deg, 45%, 44%);
+  color: hsl(228, 45%, 44%);
 }/*# sourceMappingURL=style.css.map */
